@@ -67,31 +67,36 @@ genfstab -U /mnt >> /mnt/etc/fstab
 arch-chroot /mnt
 
 echo "--------------------------------------"
-echo "-- Bootloader Systemd Installation  --"
+echo "-- Begin Manualish Bootloader ReFind Installation  --"
 echo "--------------------------------------"
-bootctl install
-cat <<EOF > /boot/loader/entries/arch.conf
-title Arch Linux  
-linux /vmlinuz-linux  
-initrd  /initramfs-linux.img  
-options root=${DISK}1 rw
-EOF
+#pacman -S refind --noconfirm
+#refind-install
 
-echo "--------------------------------------"
-echo "--          Network Setup           --"
-echo "--------------------------------------"
-pacman -S networkmanager dhclient --noconfirm --needed
-systemctl enable --now NetworkManager
+#---oldscriptforbootctl---
+#bootctl install
+#cat <<EOF > /boot/loader/entries/arch.conf
+#title Arch Linux  
+#linux /vmlinuz-linux  
+#initrd  /initramfs-linux.img  
+#options root=${DISK}1 rw
+#EOF
+#--------------------------
 
-echo "--------------------------------------"
-echo "--      Set Password for Root       --"
-echo "--------------------------------------"
-echo "Enter password for root user: "
-passwd root
+#echo "--------------------------------------"
+#echo "--          Network Setup           --"
+#echo "--------------------------------------"
+#pacman -S networkmanager dhclient --noconfirm --needed
+#systemctl enable --now NetworkManager
 
-exit
-umount -R /mnt
+#echo "--------------------------------------"
+#echo "--      Set Password for Root       --"
+#echo "--------------------------------------"
+#echo "Enter password for root user: "
+#passwd root
 
-echo "--------------------------------------"
-echo "--   SYSTEM READY FOR FIRST BOOT    --"
-echo "--------------------------------------"
+#exit
+#umount -R /mnt
+
+#echo "--------------------------------------"
+#echo "--   SYSTEM READY FOR FIRST BOOT    --"
+#echo "--------------------------------------"
